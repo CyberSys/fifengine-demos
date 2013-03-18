@@ -1,10 +1,9 @@
 #!/usr/bin/env python
-
 # -*- coding: utf-8 -*-
 
 # ####################################################################
-#  Copyright (C) 2005-2013 by the FIFE team
-#  http://www.fifengine.net
+#  Copyright (C) 2005-2009 by the FIFE team
+#  http://www.fifengine.de
 #  This file is part of FIFE.
 #
 #  FIFE is free software; you can redistribute it and/or
@@ -22,49 +21,42 @@
 #  Free Software Foundation, Inc.,
 #  51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 # ####################################################################
-
-import sys, os, re, math, random, shutil
+import sys, os, re
 
 fife_path = os.path.join('..','..','engine','python')
 if os.path.isdir(fife_path) and fife_path not in sys.path:
 	sys.path.insert(0,fife_path)
 
 from fife import fife
+from fife.extensions.fife_settings import Setting
+from fife.extensions.cegui.ceguibasicapplication import CEGUIApplicationBase
+
+import PyCEGUI
+
 print "Using the FIFE python module found here: ", os.path.dirname(fife.__file__)
 
-from fife.extensions.pychan.fife_pychansettings import FifePychanSettings
-from scripts.rpg import RPGApplication
+DemoSettings = Setting(app_name="CEGUI Demo")
 
-
-TDS = FifePychanSettings(app_name="rpg",
-              settings_file="./settings.xml")
-
-
-def main():
-	app = RPGApplication(TDS)
-	app.run()
-
+class CEGUIDemo(CEGUIApplicationBase):
+	
+	def __init__(self, setting = None):
+		super(CEGUIDemo, self).__init__(setting)
+		
+		self._loadSchemes()
+		
+		root = myRoot = PyCEGUI.WindowManager.getSingleton().createWindow( "DefaultWindow", "_MasterRoot" )
+		PyCEGUI.System.getSingleton().setGUISheet(myRoot)
+		
+		newWindow = PyCEGUI.WindowManager.getSingleton().loadWindowLayout("MyConsole.layout","second_")
+		root.addChildWindow(newWindow)
+		
+	def _loadSchemes(self):
+		PyCEGUI.SchemeManager.getSingleton().create("TaharezLook.scheme")
+	
+	def _pump(self):
+		if self._listener.quitrequested:
+			self.quit()
+	
 if __name__ == '__main__':
-	if TDS.get("FIFE", "ProfilingOn"):
-		import hotshot, hotshot.stats
-		print "Starting profiler"
-		prof = hotshot.Profile("fife.prof")
-		prof.runcall(main)
-		prof.close()
-		print "analysing profiling results"
-		stats = hotshot.stats.load("fife.prof")
-		stats.strip_dirs()
-		stats.sort_stats('time', 'calls')
-		stats.print_stats(20)
-	else:
-		if TDS.get("FIFE", "UsePsyco"):
-			# Import Psyco if available
-			try:
-				import psyco
-				psyco.full()
-				print "Psyco acceleration in use"
-			except ImportError:
-				print "Psyco acceleration not used"
-		else:
-			print "Psyco acceleration not used"
-		main()
+	app = CEGUIDemo(DemoSettings)
+	app.run()
