@@ -47,23 +47,23 @@ class CEGUIDemo(CEGUIApplicationBase):
 		self.chat_messages = []
 
 		root = PyCEGUI.WindowManager.getSingleton().createWindow( "DefaultWindow", "_MasterRoot" )
-		PyCEGUI.System.getSingleton().setGUISheet(root)
+		PyCEGUI.System.getSingleton().getDefaultGUIContext().setRootWindow(root)
 		
-		chatWindow = PyCEGUI.WindowManager.getSingleton().loadWindowLayout("MyConsole.layout","chat_")
-		root.addChildWindow(chatWindow)
-		self.chatEdit = PyCEGUI.WindowManager.getSingleton().getWindow("chat_EditBox")
-		self.chatEdit.subscribeEvent(PyCEGUI.Editbox.EventKeyDown, self, "chatKeyPressed")
-		self.chatBox = PyCEGUI.WindowManager.getSingleton().getWindow("chat_ChatBox")
-		chatSendButton = PyCEGUI.WindowManager.getSingleton().getWindow("chat_SendButton")
-		chatSendButton.subscribeEvent(PyCEGUI.PushButton.EventClicked, self, "chatSend")
+		chatWindow = PyCEGUI.WindowManager.getSingleton().loadLayoutFromFile("MyConsole.layout")
+		root.addChild(chatWindow)
+		self.chatEdit = chatWindow.getChild("EditBox")
+		self.chatEdit.subscribeEvent(PyCEGUI.Editbox.EventKeyDown, self.chatKeyPressed)
+		self.chatBox = chatWindow.getChild("ChatBox")
+		chatSendButton = chatWindow.getChild("SendButton")
+		chatSendButton.subscribeEvent(PyCEGUI.PushButton.EventClicked, self.chatSend)
 
-		keyTestWindow = PyCEGUI.WindowManager.getSingleton().loadWindowLayout("KeyTest.layout","keytest_")
-		root.addChildWindow(keyTestWindow)
-		keyTestEdit = PyCEGUI.WindowManager.getSingleton().getWindow("keytest_EditBox")
-		keyTestEdit.subscribeEvent(PyCEGUI.Editbox.EventKeyDown, self, "testKeyPressed")
+		keyTestWindow = PyCEGUI.WindowManager.getSingleton().loadLayoutFromFile("KeyTest.layout")
+		root.addChild(keyTestWindow)
+		keyTestEdit = keyTestWindow.getChild("EditBox")
+		keyTestEdit.subscribeEvent(PyCEGUI.Editbox.EventKeyDown, self.testKeyPressed)
 		
 	def _loadSchemes(self):
-		PyCEGUI.SchemeManager.getSingleton().create("TaharezLook.scheme")
+		PyCEGUI.SchemeManager.getSingleton().createFromFile("TaharezLook.scheme")
 	
 	def _pump(self):
 		if self._listener.quitrequested:
