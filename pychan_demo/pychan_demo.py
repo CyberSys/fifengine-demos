@@ -176,6 +176,7 @@ class DemoApplication(pychanbasicapplication.PychanApplicationBase):
 		from colortester import ColorExample
 		from poc_gui_animation import PocAnimations
 		from stretching import StretchingExample
+		from modalfocus import ModalFocusExample
 
 		# Our list of examples
 		# We keep a dictionary of these and fill
@@ -190,6 +191,7 @@ class DemoApplication(pychanbasicapplication.PychanApplicationBase):
 			'Colortester': ColorExample(),
 			'GuiAnimations' : PocAnimations(),
 			'Image Stretching' : StretchingExample(),
+			'Modal Focus' : ModalFocusExample(),
 		}
 		self.demoList = self.gui.findChild(name='demoList')
 		self.demoList.items = sorted(self.examples.keys())
