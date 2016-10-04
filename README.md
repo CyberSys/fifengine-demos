@@ -3,7 +3,7 @@ Fifengine Demos
 
 ### CEGUI Demo
 
-The CEGUI demo shows, how to work with CrazyEddie's GUI.
+The CEGUI demo shows, how to work with CrazyEddie's GUI. The demo requires [PyCEGUI](http://cegui.org.uk/wiki/PyCEGUI).
 
 ### PyChan Demo
 
