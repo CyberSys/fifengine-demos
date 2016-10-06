@@ -64,3 +64,5 @@ rpg/settings.xml
 rpg/saves/town_save.xml
 rpg/saves/player_save.xml
 rpg/saves/level1_save.xml
+shooter/gui/highscores.xml
+shooter/settings.xml
