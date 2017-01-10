@@ -354,9 +354,9 @@ class World(EventListenerBase):
 			self.lightIntensity(0.1)
 		elif keystr == '1':
 			self.lightIntensity(-0.1)
-		elif keystr == '5':
-			self.lightSourceIntensity(25)
 		elif keystr == '4':
+			self.lightSourceIntensity(25)
+		elif keystr == '3':
 			self.lightSourceIntensity(-25)
 		elif keystr == '0' or keystr == fife.Key.NUM_0:
 			if self.ctrldown:
