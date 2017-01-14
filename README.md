@@ -1,11 +1,11 @@
-Fifengine Demos
+Fifengine Demos ![Python 2.7 Compatiblity](https://img.shields.io/badge/Python%202.7-OK-brightgreen.svg)
 ---------------
 
-### CEGUI Demo
+### CEGUI
 
 The CEGUI demo shows, how to work with CrazyEddie's GUI. The demo requires [PyCEGUI](http://cegui.org.uk/wiki/PyCEGUI).
 
-### PyChan Demo
+### PyChan
 
 Last but not least there is an example client residing in `<FIFE>/demos/pychan_demo` that shows how the pychan GUI library works. Start the GUI demo application by running `pychan_demo.py`.
 
@@ -13,7 +13,7 @@ Last but not least there is an example client residing in `<FIFE>/demos/pychan_d
 
 Rio de hola is a technology demo showing off many of the FIFE features. It is located in the `<FIFE>/demos/rio_de_hola` directory and can be launched by running `run.py`. It was at one time meant to be an example game but we have moved away from that idea and it is now more of a technology demo and a playground for developers to test their code. It does serve as a good starting point for people wishing to play around with FIFE or base your game off of.
 
-### Rocket Demo
+### Rocket
 
 A demon using librocket.
 
@@ -21,7 +21,7 @@ A demon using librocket.
 
 A basic RPG example.
 
-### Shooter Demo
+### Shooter
 
 The Shooter demo was an attempt to show the versatility and flexibility of FIFE. It is a simple side scrolling shooter that has a main menu, one level and an end boss. Try your luck and see if you can defeat the boss!
 
