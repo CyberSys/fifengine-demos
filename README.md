@@ -29,4 +29,4 @@ The Shooter demo was an attempt to show the versatility and flexibility of FIFE.
 
 The engine utilizes special settings files for configuring FIFE. This file is called `settings.xml` and resides in the `~/.fife directory` (in `<User>\Application Data\fife` for Windows users). The Shooter Demo and the PyChan demo are exceptions. They both store their `settings.xml` file in their root directories.
 
-NOTE that the `settings.xml` file is auto generated and wont be there until you run the demos for the first time. FIFE automatically fills the settings file with default values. For more information on FIFE settings please see the wiki page: https://github.com/fifengine/fifengine/wiki/Engine-settings
+NOTE that the `settings.xml` file is auto generated and wont be there until you run the demos for the first time. FIFE automatically fills the settings file with default values. For more information on FIFE settings please see the manual: https://fifengine.github.io/fifengine-docs/developer-manual/en/#_engine_settings
