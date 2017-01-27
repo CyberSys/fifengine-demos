@@ -24,6 +24,7 @@
 # ####################################################################
 
 from __future__ import print_function
+from builtins import str
 import sys, os, re, math, random, shutil, time
 from datetime import datetime
 

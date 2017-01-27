@@ -22,13 +22,14 @@
 # ####################################################################
 
 from __future__ import absolute_import
+from builtins import range
 import random
 from .agent import Agent
 from fife.extensions.fife_settings import Setting
 
 #TDS = Setting(app_name="rio_de_hola")
 
-_STATE_NONE, _STATE_IDLE, _STATE_RUN, _STATE_KICK, _STATE_TALK = xrange(5)
+_STATE_NONE, _STATE_IDLE, _STATE_RUN, _STATE_KICK, _STATE_TALK = range(5)
 
 class Hero(Agent):
 	def __init__(self, settings, model, agentName, layer, uniqInMap=True):

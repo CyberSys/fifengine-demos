@@ -23,6 +23,8 @@
 #  51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 # ####################################################################
 
+from builtins import str
+from builtins import object
 import sys, os, re, math, random, shutil
 
 from fife import fife
@@ -82,10 +84,10 @@ class QuestDialog(Window):
 		self._quest = questgiver.getNextQuest()
 		
 		self._questname = self._widget.findChild(name="questname")
-		self._questname.text = unicode(self._quest.name)
+		self._questname.text = str(self._quest.name)
 		
 		self._questtext = self._widget.findChild(name="questtext")
-		self._questtext.text = unicode(self._quest.text)
+		self._questtext.text = str(self._quest.text)
 
 		eventMap = {
 			'accept': self.questAccepted,

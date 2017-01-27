@@ -21,6 +21,7 @@
 #  51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 # ####################################################################
 
+from builtins import str
 from fife import fife, fifechan
 
 from fife.extensions import pychan
@@ -94,8 +95,8 @@ class StylingExample(PyChanExample):
 	def __init__(self):
 		super(StylingExample,self).__init__('gui/styling.xml')
 
-		self.styles = ['default'] + STYLES.keys()
-		for name,style in STYLES.items():
+		self.styles = ['default'] + list(STYLES.keys())
+		for name,style in list(STYLES.items()):
 			pychan.manager.addStyle(name,style)
 
 		pychan.loadFonts("fonts/samanata.fontdef")
@@ -103,8 +104,8 @@ class StylingExample(PyChanExample):
 	def start(self):
 		self.styledCredits = pychan.loadXML('gui/all_widgets.xml')
 		self.styledCredits.distributeInitialData({
-			'demoList' : map(lambda x:unicode(x,'utf8'),dir(pychan)),
-			'demoText' : unicode(pychan.__doc__,'utf8')
+			'demoList' : [x for x in dir(pychan)],
+			'demoText' : pychan.__doc__
 		})
 
 		self.widget = pychan.loadXML(self.xmlFile)

@@ -22,6 +22,8 @@
 # ####################################################################
 
 from __future__ import print_function
+from builtins import range
+from builtins import object
 from fife import fife
 from scripts.ships.shipbase import *
 from scripts.ships.player import Player

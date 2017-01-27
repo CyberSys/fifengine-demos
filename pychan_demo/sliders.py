@@ -21,6 +21,8 @@
 #  51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 # ####################################################################
 
+from builtins import map
+from builtins import str
 from pychan_demo import PyChanExample
 from fife.extensions import pychan
 
@@ -44,12 +46,12 @@ class SliderExample(PyChanExample):
 		icon = self.widget.findChild(name="icon")
 		# sliders have floats, fifechan is picky and wants ints
 		# so we convert here.
-		icon.position = map(int, self.widget.collectData('xslider','yslider'))
+		icon.position = list(map(int, self.widget.collectData('xslider','yslider')))
 		# we distribute to the labels with the x,y value.
 		# That's user visible 'text' - so pychan wants unicode.
 		self.widget.distributeInitialData({
-			'xvalue' : unicode(icon.x),
-			'yvalue' : unicode(icon.y),
+			'xvalue' : str(icon.x),
+			'yvalue' : str(icon.y),
 		})
 		
 		#quick demo to show the percentage bar in action

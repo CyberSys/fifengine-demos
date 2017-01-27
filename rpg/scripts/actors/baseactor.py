@@ -23,6 +23,7 @@
 #  51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 # ####################################################################
 
+from builtins import object
 import sys, os, re, math, random, shutil
 
 from fife import fife
@@ -248,7 +249,7 @@ class Actor(BaseGameObject):
 		lvars['gold'] = self._gold
 		
 		att_vars = self._attributes.serialize()
-		for key, value in att_vars.items():
+		for key, value in list(att_vars.items()):
 			lvars[key] = value
 		
 		return lvars

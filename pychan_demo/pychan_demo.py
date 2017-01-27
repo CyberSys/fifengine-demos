@@ -25,6 +25,8 @@
 # This is the pychan demo client for FIFE.
 
 from __future__ import print_function
+from builtins import str
+from builtins import object
 import sys, os, re
 
 fife_path = os.path.join('..','..','engine','python')
@@ -216,7 +218,7 @@ class DemoApplication(pychanbasicapplication.PychanApplicationBase):
 		if self.currentExample:
 			self.currentExample.stop()
 		self.currentExample = self.examples[self.demoList.selected_item]
-		self.gui.findChild(name="xmlSource").text = unicode(open(self.currentExample.xmlFile).read(), 'utf8')
+		self.gui.findChild(name="xmlSource").text = open(self.currentExample.xmlFile).read()
 		self.currentExample.start()
 
 	def showCredits(self):

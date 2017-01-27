@@ -21,6 +21,9 @@
 #  51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 # ####################################################################
 
+from __future__ import division
+from builtins import str
+from past.utils import old_div
 from fife import fife
 import copy
 import math, random
@@ -343,27 +346,27 @@ class World(EventListenerBase):
 			#update the HUD
 			avgframe = self._timemanager.getAverageFrameTime()
 			if avgframe > 0:
-				fps = 1 / (avgframe / 1000)
+				fps = old_div(1, (old_div(avgframe, 1000)))
 			else:
 				fps = 0
 			fpstxt = "%3.2f" % fps
-			self._hudwindow.setFPSText(unicode(fpstxt))
+			self._hudwindow.setFPSText(str(fpstxt))
 		
 			player = self._scene.player
 			exactcoords = player.location.getExactLayerCoordinates()
 			pos = "%1.2f" % exactcoords.x + ", %1.2f" % exactcoords.y
-			self._hudwindow.setPositionText(unicode(pos))
+			self._hudwindow.setPositionText(str(pos))
 		
 			vel = "%1.2f" % player.velocity.x + ", %1.2f" % player.velocity.y
-			self._hudwindow.setVelocityText(unicode(vel))
+			self._hudwindow.setVelocityText(str(vel))
 		
-			score = unicode(str(player.score))
+			score = str(player.score)
 			self._hudwindow.setScoreText(score)
 			
 			ilives = player.lives
 			if ilives < 0:
 				ilives = 0
-			lives = unicode(str(ilives))
+			lives = str(ilives)
 			self._hudwindow.setLivesText(lives)
 			
 		else:

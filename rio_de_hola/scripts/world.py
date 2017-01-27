@@ -23,6 +23,9 @@
 
 from __future__ import print_function
 from __future__ import absolute_import
+from __future__ import division
+from builtins import str
+from past.utils import old_div
 from fife import fife
 import math, random
 from fife.extensions import pychan
@@ -377,7 +380,7 @@ class World(EventListenerBase):
 
 	def mouseWheelMovedDown(self, evt):
 		if self.ctrldown:
-			self.cameras['main'].setZoom(self.cameras['main'].getZoom() / 1.05)
+			self.cameras['main'].setZoom(old_div(self.cameras['main'].getZoom(), 1.05))
 
 	def changeRotation(self):
 		"""

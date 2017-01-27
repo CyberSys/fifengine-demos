@@ -26,6 +26,7 @@
 
 from __future__ import print_function
 from __future__ import absolute_import
+from builtins import str
 import sys, os, re, math, random, shutil
 
 fife_path = os.path.join('..','..','engine','python')

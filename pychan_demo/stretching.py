@@ -21,6 +21,8 @@
 #  51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 # ####################################################################
 
+from builtins import map
+from builtins import str
 from pychan_demo import PyChanExample
 from fife.extensions import pychan
 
@@ -43,10 +45,10 @@ class StretchingExample(PyChanExample):
 		icon = self.widget.findChild(name="icon")
 		# sliders have floats, fifechan is picky and wants ints
 		# so we convert here.
-		icon.size = map(int, self.widget.collectData('wslider','hslider'))
+		icon.size = list(map(int, self.widget.collectData('wslider','hslider')))
 		# we distribute to the labels with the x,y value.
 		# That's user visible 'text' - so pychan wants unicode.
 		self.widget.distributeInitialData({
-			'wvalue' : unicode(icon.width),
-			'hvalue' : unicode(icon.height),
+			'wvalue' : str(icon.width),
+			'hvalue' : str(icon.height),
 		})

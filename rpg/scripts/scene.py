@@ -24,6 +24,7 @@
 # ####################################################################
 
 from __future__ import print_function
+from builtins import str
 import sys, os, re, math, random, shutil, uuid
 
 from fife import fife
@@ -166,7 +167,7 @@ class Scene(Serializer):
 		self.createPlayerObject()
 		
 	def destroyScene(self):
-		for obj in self._objectlist.values():
+		for obj in list(self._objectlist.values()):
 			obj.destroy()
 
 		self._objectlist.clear()
@@ -248,7 +249,7 @@ class Scene(Serializer):
 		
 		objectlist = []
 		
-		for obj in self._objectlist.values():
+		for obj in list(self._objectlist.values()):
 			ovals = obj.serialize()
 			map_settings.set("objects", obj.id, ovals)
 			objectlist.append(obj.id)

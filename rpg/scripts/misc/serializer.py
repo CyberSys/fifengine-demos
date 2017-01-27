@@ -23,6 +23,7 @@
 #  51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 # ####################################################################
 
+from builtins import object
 class Serializer(object):
 	def __init__(self):
 		return

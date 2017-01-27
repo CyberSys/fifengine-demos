@@ -23,6 +23,7 @@
 #  51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 # ####################################################################
 
+from builtins import object
 import sys, os, re, math, random, shutil, time
 from datetime import datetime
 

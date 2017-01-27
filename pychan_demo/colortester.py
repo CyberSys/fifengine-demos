@@ -23,6 +23,7 @@
 
 """ pychan demo app for testing rgba colors on widgets """
 
+from builtins import str
 from pychan_demo import PyChanExample
 from fife.extensions import pychan
 
@@ -84,10 +85,10 @@ class ColorExample(PyChanExample):
 		a = int(self.widget.findChild(name="base_aslider").value)
 
 		# update slider labels
-		self.widget.findChild(name="base_rvalue").text = unicode(str(r), "utf-8")
-		self.widget.findChild(name="base_gvalue").text = unicode(str(g), "utf-8")
-		self.widget.findChild(name="base_bvalue").text = unicode(str(b), "utf-8")
-		self.widget.findChild(name="base_avalue").text = unicode(str(a), "utf-8")
+		self.widget.findChild(name="base_rvalue").text = str(r)
+		self.widget.findChild(name="base_gvalue").text = str(g)
+		self.widget.findChild(name="base_bvalue").text = str(b)
+		self.widget.findChild(name="base_avalue").text = str(a)
 		
 		rgba = (r, g, b, a)
 		
@@ -111,10 +112,10 @@ class ColorExample(PyChanExample):
 		a = int(self.widget.findChild(name="background_aslider").value)
 
 		# update slider labels
-		self.widget.findChild(name="background_rvalue").text = unicode(str(r), "utf-8")
-		self.widget.findChild(name="background_gvalue").text = unicode(str(g), "utf-8")
-		self.widget.findChild(name="background_bvalue").text = unicode(str(b), "utf-8")
-		self.widget.findChild(name="background_avalue").text = unicode(str(a), "utf-8")
+		self.widget.findChild(name="background_rvalue").text = str(r)
+		self.widget.findChild(name="background_gvalue").text = str(g)
+		self.widget.findChild(name="background_bvalue").text = str(b)
+		self.widget.findChild(name="background_avalue").text = str(a)
 		
 		rgba = (r, g, b, a)
 		
@@ -138,10 +139,10 @@ class ColorExample(PyChanExample):
 		a = int(self.widget.findChild(name="selection_aslider").value)
 
 		# update slider labels
-		self.widget.findChild(name="selection_rvalue").text = unicode(str(r), "utf-8")
-		self.widget.findChild(name="selection_gvalue").text = unicode(str(g), "utf-8")
-		self.widget.findChild(name="selection_bvalue").text = unicode(str(b), "utf-8")
-		self.widget.findChild(name="selection_avalue").text = unicode(str(a), "utf-8")
+		self.widget.findChild(name="selection_rvalue").text = str(r)
+		self.widget.findChild(name="selection_gvalue").text = str(g)
+		self.widget.findChild(name="selection_bvalue").text = str(b)
+		self.widget.findChild(name="selection_avalue").text = str(a)
 		
 		rgba = (r, g, b, a)
 		
@@ -165,10 +166,10 @@ class ColorExample(PyChanExample):
 		a = int(self.widget.findChild(name="foreground_aslider").value)
 
 		# update slider labels
-		self.widget.findChild(name="foreground_rvalue").text = unicode(str(r), "utf-8")
-		self.widget.findChild(name="foreground_gvalue").text = unicode(str(g), "utf-8")
-		self.widget.findChild(name="foreground_bvalue").text = unicode(str(b), "utf-8")
-		self.widget.findChild(name="foreground_avalue").text = unicode(str(a), "utf-8")
+		self.widget.findChild(name="foreground_rvalue").text = str(r)
+		self.widget.findChild(name="foreground_gvalue").text = str(g)
+		self.widget.findChild(name="foreground_bvalue").text = str(b)
+		self.widget.findChild(name="foreground_avalue").text = str(a)
 		
 		rgba = (r, g, b, a)
 		

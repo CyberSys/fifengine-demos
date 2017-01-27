@@ -22,6 +22,8 @@
 
 """ proof-of-concept pychan demo app to test gui animations """
 
+from builtins import str
+from builtins import range
 from pychan_demo import PyChanExample
 from fife.extensions import pychan
 
@@ -79,7 +81,7 @@ class PocAnimations(PyChanExample):
 		self.delay_slider.value = float(DEFAULT_DELAY)
 		
 		self.delay_display = self.widget.findChild(name="delay_label")
-		self.delay_display.text = unicode(str(DEFAULT_DELAY))
+		self.delay_display.text = str(DEFAULT_DELAY)
 		
 		self.progressbar = self.widget.findChild(name="progressbar")
 #		self.progressbar2 = self.widget.findChild(name="progressbar2")
@@ -97,7 +99,7 @@ class PocAnimations(PyChanExample):
 	def _set_delay_display(self):
 		""" set delay display according to slider value """
 		value = self.delay_slider.value
-		self.delay_display.text = unicode(str(int(value)))		
+		self.delay_display.text = str(int(value))
 		
 	def _anim_all(self):
 		""" fire all animations """

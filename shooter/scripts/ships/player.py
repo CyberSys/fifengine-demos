@@ -21,6 +21,9 @@
 #  51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 # ####################################################################
 
+from __future__ import division
+from past.builtins import cmp
+from past.utils import old_div
 from fife import fife
 from scripts.common.baseobject import *
 from scripts.ships.shipbase import *
@@ -97,7 +100,7 @@ class Player(Ship):
 		@todo: read these values somehow from the animation
 		
 		"""
-		number = int((milliseconds / 50) / 2)
+		number = int(old_div((old_div(milliseconds, 50)), 2))
 		
 		if number <= 0:
 			return
@@ -191,10 +194,10 @@ class Player(Ship):
 			if (self._boundingBox.x + self._boundingBox.w) < camrect.x:
 				if self._velocity.x < 0:
 					self._velocity.x = 0
-				pos.x += (camrect.x - (self._boundingBox.x + self._boundingBox.w))/self._xscale + 0.03
+				pos.x += old_div((camrect.x - (self._boundingBox.x + self._boundingBox.w)),self._xscale) + 0.03
 				
 				if not ((self._boundingBox.y + self._boundingBox.h) < camrect.y) and not (self._boundingBox.y > (camrect.y + camrect.h)):
-					pos.y += self._velocity.y * (self._scene.timedelta/1000.0)/self._yscale
+					pos.y += self._velocity.y * (old_div(self._scene.timedelta,1000.0))/self._yscale
 					
 				newpos.setExactLayerCoordinates(pos)
 			if self._boundingBox.x > ( camrect.x + camrect.w ):
@@ -203,12 +206,12 @@ class Player(Ship):
 			if (self._boundingBox.y + self._boundingBox.h) < camrect.y:
 				if self._velocity.y < 0:
 					self._velocity.y = 0
-				pos.x += self._velocity.x * (self._scene.timedelta/1000.0)/self._xscale
+				pos.x += self._velocity.x * (old_div(self._scene.timedelta,1000.0))/self._xscale
 				newpos.setExactLayerCoordinates(pos)			
 			if self._boundingBox.y > (camrect.y + camrect.h):
 				if self._velocity.y > 0:
 					self._velocity.y = 0
-				pos.x += self._velocity.x * (self._scene.timedelta/1000.0)/self._xscale
+				pos.x += self._velocity.x * (old_div(self._scene.timedelta,1000.0))/self._xscale
 				newpos.setExactLayerCoordinates(pos)
 
 			self.location = newpos
