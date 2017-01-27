@@ -21,8 +21,9 @@
 #  51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 # ####################################################################
 
+from __future__ import absolute_import
 import random
-from agent import Agent
+from .agent import Agent
 from fife.extensions.fife_settings import Setting
 
 #TDS = Setting(app_name="rio_de_hola")

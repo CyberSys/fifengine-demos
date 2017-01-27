@@ -274,7 +274,7 @@ class GameController(object):
 					id = str(uuid.uuid1())
 					valdict = { "posx" : float(cmd[2]), "posy" : float(cmd[3]) }
 					obj = self._scene.loadObject(cmd[1], id, valdict)
-				except ObjectNotFoundError, e:
+				except ObjectNotFoundError as e:
 					result = "Error: Cannot load [" + cmd[1] + "].  It could not be found!"
 					obj = None
 					
@@ -283,7 +283,7 @@ class GameController(object):
 						self._scene.addObjectToScene(obj)
 						obj.position = (float(cmd[2]), float(cmd[3]))
 						result = "--OK--"
-					except ObjectAlreadyInSceneError, e:
+					except ObjectAlreadyInSceneError as e:
 						result = "Error: [" + cmd[1] + "] is already on the scene."
 						
 		elif cmd[0] == "move":

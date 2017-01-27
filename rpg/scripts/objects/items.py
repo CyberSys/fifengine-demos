@@ -74,7 +74,7 @@ class GoldStack(PickableItem):
 	def deserialize(self, valuedict):
 		super(GoldStack, self).deserialize(valuedict)
 		
-		if valuedict.has_key("value"):
+		if "value" in valuedict:
 			self._value = int(valuedict['value'])
 		else:
 			self._value = 0
@@ -103,7 +103,7 @@ class Portal(BaseItem):
 	def deserialize(self, valuedict):
 		super(Portal, self).deserialize(valuedict)
 
-		if valuedict.has_key("dest"):
+		if "dest" in valuedict:
 			self._dest = valuedict['dest']
 		else:
 			self._dest = "town"

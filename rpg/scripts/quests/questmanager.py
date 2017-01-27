@@ -62,10 +62,10 @@ class QuestManager(Serializer):
 					else:
 						questobj = Quest(identifier, quest, questdict['name'], questdict['desc'])
 
-					if questdict.has_key("quest_incomplete_dialog"):
+					if "quest_incomplete_dialog" in questdict:
 						questobj._incomplete_dialog = questdict['quest_incomplete_dialog']
 						
-					if questdict.has_key("quest_complete_dialog"):
+					if "quest_complete_dialog" in questdict:
 						questobj._complete_dialog = questdict['quest_complete_dialog']
 
 					self._gamecontroller.questmanager.addQuest(questobj)
@@ -76,7 +76,7 @@ class QuestManager(Serializer):
 		self._completedquests = []
 		
 	def addQuest(self, quest):
-		if self._quests.has_key(quest.ownerid):
+		if quest.ownerid in self._quests:
 			if not quest in self._quests[quest.ownerid]:
 				self._quests[quest.ownerid].append(quest)
 		else:
@@ -91,7 +91,7 @@ class QuestManager(Serializer):
 		return None
 
 	def getNextQuest(self, ownerid):
-		if self._quests.has_key(ownerid):
+		if ownerid in self._quests:
 			for quest in self._quests[ownerid]:
 				if not quest in self._activequests and not quest in self._completedquests:
 					return quest

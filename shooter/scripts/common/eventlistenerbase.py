@@ -21,6 +21,7 @@
 #  51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 # ####################################################################
 
+from __future__ import print_function
 from fife import fife
 from fife.extensions import pychan
 from fife.extensions.pychan.internal import get_manager
@@ -68,7 +69,7 @@ class EventListenerBase(fife.IKeyListener, fife.ICommandListener, fife.IMouseLis
 	def onCommand(self, command):
 		pass
 	def onToolsClick(self):
-		print "No tools set up yet"
+		print("No tools set up yet")
 	def onConsoleCommand(self, command):
 		pass
 	def onWidgetAction(self, evt):
