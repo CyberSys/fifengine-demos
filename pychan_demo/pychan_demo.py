@@ -42,7 +42,8 @@ class PyChanExample(object):
 	"""
 	Example class.
 	"""
-	def __init__(self,xmlFile):
+	def __init__(self, xmlFile, application=None):
+		self.application = application
 		self.xmlFile = xmlFile
 		self.widget = None
 
@@ -73,6 +74,8 @@ class PyChanExample(object):
 		if self.widget:
 			self.widget.hide()
 		self.widget = None
+		if self.application:
+			self.application.demoList.requestFocus()
 
 class TextSetter(object):
 	def __init__(self,text):
@@ -157,6 +160,7 @@ class DemoApplication(pychanbasicapplication.PychanApplicationBase):
 			'creditsLink'  : self.showCredits,
 			'closeButton'  : self.quit,
 			'demoList' : self.selectExample,
+			'xmlButton' : self.loadRuntimeXML,
 		}
 		self.gui.mapEvents(eventMap)
 
@@ -166,7 +170,7 @@ class DemoApplication(pychanbasicapplication.PychanApplicationBase):
 		# credits.capture(credits._setText(u"Credits"), event_name="mouseExited")
 		# that's because that would call credits._setText _NOW_ and we want to call
 		# it later.
-		credits.capture(lambda : TextSetter(u"CREDITS"), event_name="mouseEntered")
+		credits.capture(lambda : credits._setText(u"CREDITS"), event_name="mouseEntered")
 		credits.capture(lambda : credits._setText(u"Credits"), event_name="mouseExited")
 
 		# import example modules
@@ -176,22 +180,39 @@ class DemoApplication(pychanbasicapplication.PychanApplicationBase):
 		from colortester import ColorExample
 		from poc_gui_animation import PocAnimations
 		from stretching import StretchingExample
+		from tabbedarea import TabbedAreaExample
+		from dynamicgraph import DynamicGraphExample
+		from iconprogressbar import IconProgressBarExample
+		from imageprogressbar import ImageProgressBarExample
 		from modalfocus import ModalFocusExample
+		from showhide import ShowHideExample
 
 		# Our list of examples
 		# We keep a dictionary of these and fill
 		# the ListBox on the left with its names.
 		self.examples = {
-			'Absolute Positioning' : PyChanExample('gui/absolute.xml'),
+			'Absolute Positioning' : PyChanExample('gui/absolute.xml', self),
+			'Adjusting Container' : PyChanExample('gui/adjustingcontainer.xml'),
 			'All Widgets' : PyChanExample('gui/all_widgets.xml'),
 			'Basic Styling' : StylingExample(),
+			'Circular Box' : PyChanExample('gui/circularcontainer.xml'),
 			'Dynamic Widgets' : DynamicExample(),
 			'Sliders' : SliderExample(),
 			'ScrollArea' : PyChanExample('gui/scrollarea.xml'),
 			'Colortester': ColorExample(),
 			'GuiAnimations' : PocAnimations(),
+			'Tabbed Area' : TabbedAreaExample(),
 			'Image Stretching' : StretchingExample(),
+			'Resizable Window' : PyChanExample('gui/resizable.xml'),
+			'Dock Area' : PyChanExample('gui/dockarea.xml'),
+			'Graph Widgets' : PyChanExample('gui/graphwidgets.xml'),
+			'Dynamic Graph' : DynamicGraphExample(),
+			'Icon Progress Bar' : IconProgressBarExample(),
+			'Image Progress Bar' : ImageProgressBarExample(),
+			'Flow Container' : PyChanExample('gui/flowcontainer.xml'),
+			'Animation Icon' : PyChanExample('gui/animationicon.xml'),
 			'Modal Focus' : ModalFocusExample(),
+			'Show and Hide' : ShowHideExample(),
 		}
 		self.demoList = self.gui.findChild(name='demoList')
 		self.demoList.items = sorted(self.examples.keys())
@@ -218,12 +239,34 @@ class DemoApplication(pychanbasicapplication.PychanApplicationBase):
 		self.gui.findChild(name="xmlSource").text = unicode(open(self.currentExample.xmlFile).read(), 'utf8')
 		self.currentExample.start()
 
+	def loadRuntimeXML(self):
+		"""
+		Callback handler for clicking on the XML button.
+		"""
+		if self.demoList.selected_item is None:
+			return
+		
+		if self.currentExample:
+			self.currentExample.stop()
+
+		# save source to file
+		tmp = open("gui/tmp.xml", "w")
+		tmp.write(self.gui.findChild(name="xmlSource").text.encode("utf-8"))
+		tmp.close()
+		# change the xml path, load it and reset the path
+		xml_orig = self.currentExample.xmlFile
+		self.currentExample.xmlFile = "gui/tmp.xml"
+		self.currentExample.start()
+		self.currentExample.xmlFile = xml_orig
+
 	def showCredits(self):
 		"""
 		Callback handler from the credits link/label.
 		"""
 		# We use PyChan's synchronous execution feature here.
-		pychan.loadXML('gui/credits.xml').execute({ 'okButton' : "Yay!" })
+		if self.creditsWidget is None:
+			self.creditsWidget = pychan.loadXML('gui/credits.xml')
+		self.creditsWidget.execute({ 'okButton' : "Yay!" })
 		
 	def createListener(self):
 		"""
