@@ -1,6 +1,6 @@
 <VBox hexpand="1"><!--[PyChanのてすとです: ÜÖÄ]"-->
 	<Label text="This is the PyChan demo application. "/>
-	<HBox vexpand="1">
+	<HBox spacing="2,2" vexpand="1">
 		<ScrollArea>
 			<ListBox name="demoList"/>
 		</ScrollArea>
