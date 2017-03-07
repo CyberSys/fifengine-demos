@@ -29,7 +29,6 @@ from fife.extensions.pychan.internal import get_manager
 
 from scripts.common.eventlistenerbase import EventListenerBase
 from fife.extensions.savers import saveMapFile
-from fife.extensions.soundmanager import SoundManager
 from agents.hero import Hero
 from agents.girl import Girl
 from agents.cloud import Cloud
@@ -87,7 +86,8 @@ class World(EventListenerBase):
 		self.light_sources = 0
 		self.lightmodel = int(TDS.get("FIFE", "Lighting"))
 
-		self.soundmanager = SoundManager(self.engine)
+		self.soundmanager = engine.getSoundManager()
+		self.soundmanager.init()
 		self.music = None
 
 	def show_instancemenu(self, clickpoint, instance):
@@ -177,14 +177,14 @@ class World(EventListenerBase):
 
 		if int(TDS.get("FIFE", "PlaySounds")):
 			# play track as background music
-			self.music = self.soundmanager.createSoundEmitter('music/rio_de_hola.ogg')
-			self.music.looping = True
-			self.music.gain = 128.0
+			self.music = self.soundmanager.createEmitter('music/rio_de_hola.ogg')
+			self.music.setLooping(True)
+			self.music.setGain(0.5)
 			self.music.play()
 			
-			self.waves = self.soundmanager.createSoundEmitter('sounds/waves.ogg')
-			self.waves.looping = True
-			self.waves.gain = 16.0
+			self.waves = self.soundmanager.createEmitter('sounds/waves.ogg')
+			self.waves.setLooping(True)
+			self.waves.setGain(0.1)
 			self.waves.play()
 
 	def initAgents(self):

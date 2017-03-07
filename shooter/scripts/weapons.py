@@ -166,7 +166,8 @@ class Cannon(Weapon):
 		super(Cannon, self).__init__(scene, ship, firerate)
 		
 		self._projectileVelocity = 0.75
-		self._soundclip = scene.soundmanager.createSoundEmitter("sounds/cannon.ogg")
+		self._soundclip = scene.soundmanager.createEmitter("sounds/cannon.ogg")
+		scene.soundmanager.addEmitterToSoundEffect(scene._soundeffect, self._soundclip)
 
 		
 	def fire(self, direction):
@@ -182,7 +183,7 @@ class Cannon(Weapon):
 			self._scene.addObjectToScene(pjctl)
 			if self._soundclip:
 				location = self._ship.location.getExactLayerCoordinates()
-				self._soundclip.position = (location.x, location.y)
+				self._soundclip.setPosition(location)
 				self._soundclip.play()
 
 class FireBall(Weapon):
@@ -190,7 +191,8 @@ class FireBall(Weapon):
 		super(FireBall, self).__init__(scene, ship, firerate)
 		
 		self._projectileVelocity = 0.50
-		self._soundclip = scene.soundmanager.createSoundEmitter("sounds/fireball.ogg")		
+		self._soundclip = scene.soundmanager.createEmitter("sounds/fireball.ogg")
+		scene.soundmanager.addEmitterToSoundEffect(scene._soundeffect, self._soundclip)
 
 	def fire(self, direction):
 		velocity = fife.DoublePoint(direction)
@@ -204,6 +206,8 @@ class FireBall(Weapon):
 			self._lastfired = self._scene.time
 			self._scene.addObjectToScene(pjctl)	
 			if self._soundclip:
+				location = self._ship.location.getExactLayerCoordinates()
+				self._soundclip.setPosition(location)
 				self._soundclip.play()
 			
 class FireBallBurst(Weapon):
@@ -211,7 +215,8 @@ class FireBallBurst(Weapon):
 		super(FireBallBurst, self).__init__(scene, ship, firerate)
 		
 		self._projectileVelocity = 0.50
-		self._soundclip = scene.soundmanager.createSoundEmitter("sounds/fireball.ogg")	
+		self._soundclip = scene.soundmanager.createEmitter("sounds/fireball.ogg")
+		scene.soundmanager.addEmitterToSoundEffect(scene._soundeffect, self._soundclip)
 
 		self._burstrate = burstrate
 		self._burstnumber = int(burstnumber)
@@ -233,6 +238,8 @@ class FireBallBurst(Weapon):
 				self._scene.addObjectToScene(pjctl)
 			
 				if self._soundclip:
+					location = self._ship.location.getExactLayerCoordinates()
+					self._soundclip.setPosition(location)
 					self._soundclip.play()		
 				
 				self._lastburstfired = self._scene.time
@@ -249,7 +256,8 @@ class FireBallSpread(Weapon):
 		super(FireBallSpread, self).__init__(scene, ship, firerate)
 		
 		self._projectileVelocity = 0.50
-		self._soundclip = scene.soundmanager.createSoundEmitter("sounds/fireball.ogg")
+		self._soundclip = scene.soundmanager.createEmitter("sounds/fireball.ogg")
+		scene.soundmanager.addEmitterToSoundEffect(scene._soundeffect, self._soundclip)
 		
 	def fire(self, direction):
 	
@@ -306,6 +314,8 @@ class FireBallSpread(Weapon):
 			self._scene.addObjectToScene(pjctl7)
 			
 			if self._soundclip:
+				location = self._ship.location.getExactLayerCoordinates()
+				self._soundclip.setPosition(location)
 				self._soundclip.play()
 
 			self._lastfired = self._scene.time
@@ -315,7 +325,8 @@ class CannonSpread5(Weapon):
 		super(CannonSpread5, self).__init__(scene, ship, firerate)
 		
 		self._projectileVelocity = 1
-		self._soundclip = scene.soundmanager.createSoundEmitter("sounds/cannon.ogg")
+		self._soundclip = scene.soundmanager.createEmitter("sounds/cannon.ogg")
+		scene.soundmanager.addEmitterToSoundEffect(scene._soundeffect, self._soundclip)
 
 	def fire(self, direction):
 	
@@ -360,6 +371,8 @@ class CannonSpread5(Weapon):
 			self._scene.addObjectToScene(pjctl6)
 			
 			if self._soundclip:
+				location = self._ship.location.getExactLayerCoordinates()
+				self._soundclip.setPosition(location)
 				self._soundclip.play()
 			
 			self._lastfired = self._scene.time
