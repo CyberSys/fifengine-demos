@@ -242,6 +242,7 @@ class Scene(object):
 		"""
 		Sound callback example that gets fired after the music has finished playing.
 		"""
+		if self._gameover: return
 		print self._music.getSoundClip().getName() + " has finished playing.  Starting it again...\n"
 		self._music.play()
 		
@@ -262,6 +263,7 @@ class Scene(object):
 		self._world.gameOver()
 		
 	def endLevel(self):
+		self._gameover = True
 		self._music.stop()
 		self._world.endLevel()
 		

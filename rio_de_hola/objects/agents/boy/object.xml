@@ -26,6 +26,7 @@
 			</animation>
 		</action>
 		<action id="run">
+			<sound source="sounds/footstep.ogg" looping="1"/>
 			<animation atlas="run.png" height="96" width="96">
 				<direction delay="130" dir="0" frames="8"/>
 				<direction delay="130" dir="45" frames="8"/>
@@ -62,6 +63,7 @@
 			</animation>
 		</action>
 		<action id="walk">
+			<sound source="sounds/footstep.ogg" looping="1"/>
 			<animation atlas="walk.png" height="96" width="96">
 				<direction delay="130" dir="0" frames="8"/>
 				<direction delay="130" dir="45" frames="8"/>
