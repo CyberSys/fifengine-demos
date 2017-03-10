@@ -148,7 +148,7 @@ class DemoApplication(pychanbasicapplication.PychanApplicationBase):
 		super(DemoApplication,self).__init__()
 
 		# Init Pychan
-		pychan.loadFonts("fonts/freefont.fontdef")
+		pychan.loadFonts("fonts/freefont.xml")
 		pychan.manager.setDefaultFont("FreeSans")
 		pychan.setupModalExecution(self.mainLoop,self.breakFromMainLoop)
 
