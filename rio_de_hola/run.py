@@ -46,13 +46,28 @@ from fife.extensions.fife_utils import getUserDataDirectory
 
 TDS = FifePychanSettings(app_name="rio_de_hola")
 
+class KeyFilter(fife.IKeyFilter):
+	"""
+	This is the implementation of the fife.IKeyFilter class.
+
+	Prevents any filtered keys from being consumed by fifechan.
+	"""
+	def __init__(self, keys):
+		fife.IKeyFilter.__init__(self)
+		self._keys = keys
+
+	def isFiltered(self, event):
+		return event.getKey().getValue() in self._keys
+
 class ApplicationListener(eventlistenerbase.EventListenerBase):
 	def __init__(self, engine, world):
 		super(ApplicationListener, self).__init__(engine,regKeys=True,regCmd=True, regMouse=False, regConsole=True, regWidget=True)
 		self.engine = engine
 		self.world = world
-		engine.getEventManager().setNonConsumableKeys([
-			fife.Key.ESCAPE,])
+
+		keyfilter = KeyFilter([fife.Key.ESCAPE, fife.Key.F10])
+		keyfilter.__disown__()
+		engine.getEventManager().setKeyFilter(keyfilter)
 
 		self.quit = False
 		self.aboutWindow = None
@@ -160,15 +175,5 @@ if __name__ == '__main__':
 		stats.strip_dirs()
 		stats.sort_stats('time', 'calls')
 		stats.print_stats(20)
-	else:
-		if TDS.get("FIFE", "UsePsyco"):
-			# Import Psyco if available
-			try:
-				import psyco
-				psyco.full()
-				print "Psyco acceleration in use"
-			except ImportError:
-				print "Psyco acceleration not used"
-		else:
-			print "Psyco acceleration not used"
+	else:		
 		main()

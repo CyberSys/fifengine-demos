@@ -62,7 +62,7 @@ STYLES= {
 	'Window' : {
 		'border_size': 1,
 		'margins': (10,10),
-		'opaque' : 0,
+		'opaque' : False,
 		'titlebar_height' : 30,
 		'background_image' : 'gui/backgrounds/background.png',
 		'font' : 'samanata_large'
