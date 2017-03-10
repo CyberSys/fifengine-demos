@@ -27,7 +27,17 @@ from scripts.ships.player import Player
 from scripts.ships.enemies import *
 from scripts.powerups import *
 from fife.fife import FloatRect as Rect
+from fife.fife import AudioSpaceCoordinate
 
+class SoundEmitterListener(fife.SoundEmitterListener):
+	def __init__(self, emitter, scene):
+		fife.SoundEmitterListener.__init__(self)
+		emitter.addListener(self)
+		self._scene = scene
+
+	def onSoundFinished(self, emitterId, soundClipId):
+		self._scene.musicHasFinished()
+		
 class SceneNode(object):
 	"""
 	A node in the scene graph.
@@ -69,13 +79,21 @@ class Scene(object):
 		@param objectLayer: The layer that all objects exist on
 		@type objectLayer: L{fife.Layer}
 		@param soundmanager: A reference to the SoundManager
-		@type soundmanager: L{fife.extensions.soundmanager.SoundManager}
+		@type soundmanager: L{fife.SoundManager}
 		"""
 		self._engine = engine
 		self._world = world
 		self._model = engine.getModel()
 		self._layer = objectLayer
 		self._soundmanager = soundmanager
+		#set the listener orientation
+		self._soundmanager.setListenerOrientation(AudioSpaceCoordinate(0,1,0))
+		#deactivate distance model
+		self._soundmanager.setDistanceModel(fife.SD_DISTANCE_NONE)
+		# create and enable soundeffect
+		self._soundeffect = self._soundmanager.createSoundEffectPreset(fife.SE_PRESET_SPACESTATION_LONGPASSAGE)
+		self._soundmanager.enableSoundEffect(self._soundeffect)
+		
 		self._nodes = list()
 		
 		self._player = None
@@ -97,6 +115,7 @@ class Scene(object):
 		self._gameover = False
 		
 		self._music = None
+		self._musiclistener = None
 
 	def destroyScene(self):
 		"""
@@ -213,10 +232,9 @@ class Scene(object):
 		#and finally add the player to the scene
 		self.addObjectToScene(self._player)
 		
-		self._music = self._soundmanager.createSoundEmitter("music/waynesmind2.ogg")
-		self._music.callback = self.musicHasFinished
-		self._music.looping = True
-		self._soundmanager.playClip(self._music)
+		self._music = self._soundmanager.createEmitter("music/waynesmind2.ogg")
+		self._musiclistener = SoundEmitterListener(self._music, self)
+		self._music.play()
 		
 		self.startCamera()
 
@@ -224,7 +242,9 @@ class Scene(object):
 		"""
 		Sound callback example that gets fired after the music has finished playing.
 		"""
-		print self._music.name + " has finished playing.  Starting it again...\n"
+		if self._gameover: return
+		print self._music.getSoundClip().getName() + " has finished playing.  Starting it again...\n"
+		self._music.play()
 		
 	def pause(self, time):
 		self._pausedtime = time
@@ -239,11 +259,12 @@ class Scene(object):
 		
 	def gameOver(self):
 		self._gameover = True
-		self._soundmanager.stopClip(self._music)		
+		self._music.stop()		
 		self._world.gameOver()
 		
 	def endLevel(self):
-		self._soundmanager.stopClip(self._music)
+		self._gameover = True
+		self._music.stop()
 		self._world.endLevel()
 		
 	def queueObjectForRemoval(self, obj):
@@ -378,7 +399,7 @@ class Scene(object):
 		self._camera.setLocation(loc)
 		
 		#update the listener position
-		self._soundmanager.listenerposition = (exactloc.x, exactloc.y)
+		self._soundmanager.setListenerPosition(exactloc)
 		
 		topleft = self._camera.toMapCoordinates(fife.ScreenPoint(0,0))
 		bottomright = self._camera.toMapCoordinates(fife.ScreenPoint(1024,768))

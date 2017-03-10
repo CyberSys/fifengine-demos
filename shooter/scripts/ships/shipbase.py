@@ -77,7 +77,7 @@ class Ship(SpaceObject):
 		@param name: The name of the ship
 		@type name: C{string}
 		@param findInstance: True if the instance you are looking for is already loaded
-		                     False if you want to load the instance yourself
+				     False if you want to load the instance yourself
 
 		@type findInstance: C{boolean}
 
@@ -93,8 +93,10 @@ class Ship(SpaceObject):
 		self._hitpoints = 0
 		self._scorevalue = 0
 
-		self._hitclip = self._scene.soundmanager.createSoundEmitter("sounds/hit.ogg")
-		self._explodclip = self._scene.soundmanager.createSoundEmitter("sounds/explode.ogg")
+		self._hitclip = self._scene.soundmanager.createEmitter("sounds/hit.ogg")
+		scene.soundmanager.addEmitterToSoundEffect(scene._soundeffect, self._hitclip)
+		self._explodclip = self._scene.soundmanager.createEmitter("sounds/explode.ogg")
+		scene.soundmanager.addEmitterToSoundEffect(scene._soundeffect, self._explodclip)
 
 	def _setWeapon(self, weapon):
 		self._weapon = weapon
@@ -134,6 +136,8 @@ class Ship(SpaceObject):
 		if self._hitpoints <= 0:
 			self.destroy()
 		else:
+			location = self.location.getExactLayerCoordinates()
+			self._hitclip.setPosition(location)
 			self._hitclip.play()
 
 	def destroy(self):
@@ -143,7 +147,7 @@ class Ship(SpaceObject):
 		if self._running:
 			self._instance.actOnce('explode', self._instance.getFacingLocation())
 			location = self.location.getExactLayerCoordinates()
-			self._explodclip.position = (location.x, location.y)
+			self._explodclip.setPosition(location)
 			self._explodclip.play()
 			super(Ship, self).destroy()
 
