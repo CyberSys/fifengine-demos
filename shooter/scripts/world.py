@@ -28,6 +28,7 @@ from fife.extensions import pychan
 from fife.extensions.pychan import widgets
 
 from scripts.common.eventlistenerbase import EventListenerBase
+from scripts.common.joysticklistener import JoystickListener
 
 from scripts.gui.guis import *
 
@@ -35,6 +36,7 @@ from scripts.ships.shipbase import Ship
 from scripts.ships.player import Player
 from scripts.scene import Scene
 
+	
 class World(EventListenerBase):
 	"""
 	The world!
@@ -59,11 +61,11 @@ class World(EventListenerBase):
 		self._soundmanager.init()
 		self._filename = ''
 		self._keystate = { 'UP': False, 
-		                   'DOWN': False, 
-		                   'LEFT': False, 
-		                   'RIGHT': False, 
-		                   'CTRL': False, 
-		                   'SPACE': False, } 
+				   'DOWN': False, 
+				   'LEFT': False, 
+				   'RIGHT': False, 
+				   'CTRL': False, 
+				   'SPACE': False, } 
 		self._pump_ctr = 0
 		self._map = None
 		self._scene = None
@@ -92,6 +94,12 @@ class World(EventListenerBase):
 		self._genericrenderer = None
 		
 		self._gamecomplete = False
+		
+		# Joystick section
+		self.joysticksupport = self._engine.getSettings().isJoystickSupport()
+		if self.joysticksupport:
+			self.joysticklistener = JoystickListener(self)
+			self._eventmanager.loadGamepadMapping("gamecontrollerdb.txt")
 		
 	def showMainMenu(self):
 		if self._scene:
