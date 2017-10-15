@@ -332,6 +332,6 @@
 		<instances>
 		</instances>
 	</layer>
-	<camera ref_cell_height="256" zoom="0.513158118231" rotation="0.0" ref_layer_id="background" ref_cell_width="256" id="main" tilt="0.0">
+	<camera ref_cell_height="256" zoom="0.513158118231" rotation="0.0" ref_cell_width="256" id="main" tilt="0.0">
 	</camera>
 </map>
