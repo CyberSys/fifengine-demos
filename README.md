@@ -15,7 +15,7 @@ Rio de hola is a technology demo showing off many of the FIFE features. It is lo
 
 ### Rocket
 
-A demon using librocket.
+A demo using librocket.
 
 ### RPG
 
