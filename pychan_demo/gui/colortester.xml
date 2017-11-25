@@ -5,7 +5,7 @@
 			<Slider name="example1" />
 			<CheckBox text="Checkbox" name="example2" />
 			<Button text="Button" name="example3" />
-			<VBox size="150,25" min_size="150,25" max_size="150,25" opaque="1" name="example4"><Label text="VBox" /></VBox>
+			<VBox size="150,25" min_size="150,25" max_size="150,25" opaque="True" name="example4"><Label text="VBox" /></VBox>
 			<RadioButton name="example5" text="RadioButton" group="radio2"/>
 			<ScrollArea min_size="150,25"  horizontal_scrollbar="0" name="example6">
 				<TextBox text="ScrollArea" min_size="100,100" />

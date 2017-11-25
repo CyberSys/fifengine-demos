@@ -8231,8 +8231,8 @@
 		<lights>
 		</lights>
 	</layer>
-	<camera ref_layer_id="TileLayer" id="main" tilt="-42.0" zoom="0.348906160188" ref_cell_width="128" ref_cell_height="96" rotation="45.0">
+	<camera id="main" tilt="-42.0" zoom="0.348906160188" ref_cell_width="128" ref_cell_height="96" rotation="45.0">
 	</camera>
-	<camera ref_layer_id="TileLayer" id="small" tilt="-42.0" viewport="10,10,400,250" zoom="1.0" ref_cell_width="128" ref_cell_height="96" rotation="45.0">
+	<camera id="small" tilt="-42.0" viewport="10,10,400,250" zoom="1.0" ref_cell_width="128" ref_cell_height="96" rotation="45.0">
 	</camera>
 </map>

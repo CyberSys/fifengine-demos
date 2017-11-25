@@ -29,7 +29,6 @@ import sys, os, re, math, random, shutil, glob, uuid
 
 from fife import fife
 
-from fife.extensions.soundmanager import SoundManager
 from fife.extensions.serializers.xml_loader_tools import loadImportFile
 
 from fife.extensions import pychan
@@ -234,7 +233,8 @@ class GameController(object):
 		self._engine = engine
 		self._settings = settings
 		
-		self._soundmanager = SoundManager(self._engine)		
+		self._soundmanager = engine.getSoundManager()
+		self._soundmanager.init()
 		
 		self._keystate = KeyState()
 		

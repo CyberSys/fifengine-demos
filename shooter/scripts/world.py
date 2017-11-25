@@ -29,9 +29,9 @@ import copy
 import math, random
 from fife.extensions import pychan
 from fife.extensions.pychan import widgets
-from fife.extensions.soundmanager import SoundManager
 
 from scripts.common.eventlistenerbase import EventListenerBase
+from scripts.common.joysticklistener import JoystickListener
 
 from scripts.gui.guis import *
 
@@ -39,6 +39,7 @@ from scripts.ships.shipbase import Ship
 from scripts.ships.player import Player
 from scripts.scene import Scene
 
+	
 class World(EventListenerBase):
 	"""
 	The world!
@@ -59,21 +60,21 @@ class World(EventListenerBase):
 		self._timemanager = engine.getTimeManager()
 		self._eventmanager = engine.getEventManager()
 		self._model = engine.getModel()
+		self._soundmanager = engine.getSoundManager()
+		self._soundmanager.init()
 		self._filename = ''
 		self._keystate = { 'UP': False, 
-		                   'DOWN': False, 
-		                   'LEFT': False, 
-		                   'RIGHT': False, 
-		                   'CTRL': False, 
-		                   'SPACE': False, } 
+				   'DOWN': False, 
+				   'LEFT': False, 
+				   'RIGHT': False, 
+				   'CTRL': False, 
+				   'SPACE': False, } 
 		self._pump_ctr = 0
 		self._map = None
 		self._scene = None
 		self._paused = True
 		self._pausedtime = 0
 		self._starttime = 0
-		
-		self._soundmanager = SoundManager(self._engine)
 		
 		self._mainmenu = MainMenu(self, self._setting)
 		self.showMainMenu()
@@ -97,6 +98,12 @@ class World(EventListenerBase):
 		
 		self._gamecomplete = False
 		
+		# Joystick section
+		self.joysticksupport = self._engine.getSettings().isJoystickSupport()
+		if self.joysticksupport:
+			self.joysticklistener = JoystickListener(self)
+			self._eventmanager.loadGamepadMapping("gamecontrollerdb.txt")
+		
 	def showMainMenu(self):
 		if self._scene:
 			self._paused = True
@@ -114,7 +121,6 @@ class World(EventListenerBase):
 		
 	def quit(self):
 		self.reset()
-		self._soundmanager.destroy()
 		self._applictaion.requestQuit()
 		
 	def reset(self):
