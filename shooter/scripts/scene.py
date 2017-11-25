@@ -21,6 +21,9 @@
 #  51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 # ####################################################################
 
+from __future__ import print_function
+from builtins import range
+from builtins import object
 from fife import fife
 from scripts.ships.shipbase import *
 from scripts.ships.player import Player
@@ -243,7 +246,7 @@ class Scene(object):
 		Sound callback example that gets fired after the music has finished playing.
 		"""
 		if self._gameover: return
-		print self._music.getSoundClip().getName() + " has finished playing.  Starting it again...\n"
+		print(self._music.getSoundClip().getName() + " has finished playing.  Starting it again...\n")
 		self._music.play()
 		
 	def pause(self, time):

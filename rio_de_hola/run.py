@@ -24,6 +24,9 @@
 # ####################################################################
 # This is the rio de hola client for FIFE.
 
+from __future__ import print_function
+from __future__ import absolute_import
+from builtins import str
 import sys, os, re, math, random, shutil
 
 fife_path = os.path.join('..','..','engine','python')
@@ -31,7 +34,7 @@ if os.path.isdir(fife_path) and fife_path not in sys.path:
 	sys.path.insert(0,fife_path)
 
 from fife import fife
-print "Using the FIFE python module found here: ", os.path.dirname(fife.__file__)
+print("Using the FIFE python module found here: ", os.path.dirname(fife.__file__))
 
 from fife.extensions import *
 from scripts import world
@@ -81,7 +84,7 @@ class ApplicationListener(eventlistenerbase.EventListenerBase):
 		self.rootpanel.show()
 
 	def keyPressed(self, evt):
-		print evt
+		print(evt)
 		keyval = evt.getKey().getValue()
 		keystr = evt.getKey().getAsString().lower()
 		consumed = False
@@ -166,11 +169,11 @@ def main():
 if __name__ == '__main__':
 	if TDS.get("FIFE", "ProfilingOn"):
 		import hotshot, hotshot.stats
-		print "Starting profiler"
+		print("Starting profiler")
 		prof = hotshot.Profile("fife.prof")
 		prof.runcall(main)
 		prof.close()
-		print "analysing profiling results"
+		print("analysing profiling results")
 		stats = hotshot.stats.load("fife.prof")
 		stats.strip_dirs()
 		stats.sort_stats('time', 'calls')

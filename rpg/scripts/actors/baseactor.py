@@ -23,6 +23,7 @@
 #  51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 # ####################################################################
 
+from builtins import object
 import sys, os, re, math, random, shutil
 
 from fife import fife
@@ -128,15 +129,15 @@ class ActorAttributes(Serializer):
 		return lvars
 		
 	def deserialize(self, valuedict):
-		if valuedict.has_key("str"):
+		if "str" in valuedict:
 			self._str = int(valuedict['str'])
-		if valuedict.has_key("dex"):
+		if "dex" in valuedict:
 			self._dex = int(valuedict['dex'])
-		if valuedict.has_key("int"):
+		if "int" in valuedict:
 			self._int = int(valuedict['int'])
-		if valuedict.has_key("hp"):
+		if "hp" in valuedict:
 			self._hp = int(valuedict['hp'])
-		if valuedict.has_key("walk_speed"):
+		if "walk_speed" in valuedict:
 			self._walkspeed = float(valuedict['walk_speed'])
 			
 	def _getStrength(self):
@@ -248,7 +249,7 @@ class Actor(BaseGameObject):
 		lvars['gold'] = self._gold
 		
 		att_vars = self._attributes.serialize()
-		for key, value in att_vars.items():
+		for key, value in list(att_vars.items()):
 			lvars[key] = value
 		
 		return lvars
@@ -256,7 +257,7 @@ class Actor(BaseGameObject):
 	def deserialize(self, valuedict):
 		super(Actor, self).deserialize(valuedict)
 		
-		if valuedict.has_key("gold"):
+		if "gold" in valuedict:
 			self._gold = int(valuedict['gold'])
 		else:
 			self._gold = 0

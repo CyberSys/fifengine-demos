@@ -21,6 +21,11 @@
 #  51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 # ####################################################################
 
+from __future__ import print_function
+from __future__ import absolute_import
+from __future__ import division
+from builtins import str
+from past.utils import old_div
 from fife import fife
 import math, random
 from fife.extensions import pychan
@@ -29,11 +34,11 @@ from fife.extensions.pychan.internal import get_manager
 
 from scripts.common.eventlistenerbase import EventListenerBase
 from fife.extensions.savers import saveMapFile
-from agents.hero import Hero
-from agents.girl import Girl
-from agents.cloud import Cloud
-from agents.beekeeper import Beekeeper
-from agents.agent import create_anonymous_agents
+from .agents.hero import Hero
+from .agents.girl import Girl
+from .agents.cloud import Cloud
+from .agents.beekeeper import Beekeeper
+from .agents.agent import create_anonymous_agents
 from fife.extensions.fife_settings import Setting
 
 TDS = Setting(app_name="rio_de_hola")
@@ -45,10 +50,10 @@ class MapListener(fife.MapChangeListener):
 
 	def onMapChanged(self, map, changedLayers):
 		return
-		print "Changes on map ", map.getId()
+		print("Changes on map ", map.getId())
 		for layer in map.getLayers():
-			print layer.getId()
-			print "    ", ["%s, %x" % (i.getObject().getId(), i.getChangeInfo()) for i in layer.getChangedInstances()]
+			print(layer.getId())
+			print("    ", ["%s, %x" % (i.getObject().getId(), i.getChangeInfo()) for i in layer.getChangedInstances()])
 
 	def onLayerCreate(self, map, layer):
 		pass
@@ -110,7 +115,7 @@ class World(EventListenerBase):
 		if target_distance > 3.0:
 			self.instancemenu.addChild(self.dynamic_widgets['moveButton'])
 		else:
-			if self.instance_to_agent.has_key(instance.getFifeId()):
+			if instance.getFifeId() in self.instance_to_agent:
 				self.instancemenu.addChild(self.dynamic_widgets['talkButton'])
 				self.instancemenu.addChild(self.dynamic_widgets['kickButton'])
 		# And show it :)
@@ -375,7 +380,7 @@ class World(EventListenerBase):
 
 	def mouseWheelMovedDown(self, evt):
 		if self.ctrldown:
-			self.cameras['main'].setZoom(self.cameras['main'].getZoom() / 1.05)
+			self.cameras['main'].setZoom(old_div(self.cameras['main'].getZoom(), 1.05))
 
 	def changeRotation(self):
 		"""
@@ -397,7 +402,7 @@ class World(EventListenerBase):
 
 		if (evt.getButton() == fife.MouseEvent.RIGHT):
 			instances = self.getInstancesAt(clickpoint)
-			print "selected instances on agent layer: ", [i.getObject().getId() for i in instances]
+			print("selected instances on agent layer: ", [i.getObject().getId() for i in instances])
 			if instances:
 				self.show_instancemenu(clickpoint, instances[0])
 
@@ -442,7 +447,7 @@ class World(EventListenerBase):
 		result = ''
 		try:
 			result = str(eval(command))
-		except Exception, e:
+		except Exception as e:
 			result = str(e)
 		return result
 

@@ -176,12 +176,12 @@ class BaseGameObject(Serializer):
 		if not valuedict:
 			return
 		
-		if valuedict.has_key("posx"):
+		if "posx" in valuedict:
 			x = float(valuedict['posx'])
 		else:
 			x = 0
 			
-		if valuedict.has_key("posy"):
+		if "posy" in valuedict:
 			y = float(valuedict['posy'])
 		else:
 			y = 0

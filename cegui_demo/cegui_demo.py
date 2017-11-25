@@ -21,6 +21,8 @@
 #  Free Software Foundation, Inc.,
 #  51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 # ####################################################################
+from __future__ import print_function
+from builtins import str
 import sys, os, re
 
 fife_path = os.path.join('..','..','engine','python')
@@ -33,7 +35,7 @@ from fife.extensions.cegui.ceguibasicapplication import CEGUIApplicationBase
 
 import PyCEGUI
 
-print "Using the FIFE python module found here: ", os.path.dirname(fife.__file__)
+print("Using the FIFE python module found here: ", os.path.dirname(fife.__file__))
 
 DemoSettings = Setting(app_name="CEGUI Demo")
 

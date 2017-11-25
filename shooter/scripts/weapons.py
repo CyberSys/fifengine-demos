@@ -21,6 +21,7 @@
 #  51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 # ####################################################################
 
+from builtins import object
 from fife import fife
 from scripts.common.baseobject import *
 

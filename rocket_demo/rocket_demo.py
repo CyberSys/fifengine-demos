@@ -21,6 +21,8 @@
 #  Free Software Foundation, Inc.,
 #  51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 # ####################################################################
+from __future__ import print_function
+from builtins import object
 import sys, os, re
 
 fife_path = os.path.join('..','..','engine','python')
@@ -30,7 +32,7 @@ if os.path.isdir(fife_path) and fife_path not in sys.path:
 from fife import fife
 import rocket
 
-print "Using the FIFE python module found here: ", os.path.dirname(fife.__file__)
+print("Using the FIFE python module found here: ", os.path.dirname(fife.__file__))
 
 from fife.extensions.librocket.rocketbasicapplication import RocketApplicationBase
 from fife.extensions.librocket.rocketbasicapplication import RocketEventListener

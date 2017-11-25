@@ -23,6 +23,8 @@
 #  51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 # ####################################################################
 
+from __future__ import print_function
+from builtins import str
 import sys, os, re, math, random, shutil, time
 from datetime import datetime
 
@@ -137,7 +139,7 @@ class ApplicationListener(fife.IKeyListener, fife.ICommandListener, fife.Console
 		return result
 		
 	def onToolsClick(self):
-		print "No tools set up yet"
+		print("No tools set up yet")
 
 class RPGApplication(PychanApplicationBase):
 	"""

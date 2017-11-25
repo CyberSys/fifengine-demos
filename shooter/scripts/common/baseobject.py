@@ -21,6 +21,9 @@
 #  51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 # ####################################################################
 
+from __future__ import division
+from builtins import object
+from past.utils import old_div
 from fife import fife
 from fife.fife import FloatRect as Rect
 
@@ -84,11 +87,11 @@ class SpaceObject(object):
 			shiploc = self.location
 			exactloc = shiploc.getExactLayerCoordinates()
 		
-			exactloc.x += self._velocity.x * (self._scene.timedelta/1000.0)/self._xscale
-			exactloc.y += self._velocity.y * (self._scene.timedelta/1000.0)/self._yscale
+			exactloc.x += self._velocity.x * (old_div(self._scene.timedelta,1000.0))/self._xscale
+			exactloc.y += self._velocity.y * (old_div(self._scene.timedelta,1000.0))/self._yscale
 		
-			self._boundingBox.x = (exactloc.x * self._xscale - self._boundingBox.w/2)
-			self._boundingBox.y = (exactloc.y * self._yscale - self._boundingBox.h/2)
+			self._boundingBox.x = (exactloc.x * self._xscale - old_div(self._boundingBox.w,2))
+			self._boundingBox.y = (exactloc.y * self._yscale - old_div(self._boundingBox.h,2))
 				
 			shiploc.setExactLayerCoordinates(exactloc)
 			
@@ -121,8 +124,8 @@ class SpaceObject(object):
 		@param vector A vector specifying the direction and intensity of thrust.
 		@type vector: L{fife.DoublePoint}
 		"""
-		self._velocity.x += (vector.x * (self._scene.timedelta/1000.0))/self._xscale
-		self._velocity.y += (vector.y * (self._scene.timedelta/1000.0))/self._yscale
+		self._velocity.x += old_div((vector.x * (old_div(self._scene.timedelta,1000.0))),self._xscale)
+		self._velocity.y += old_div((vector.y * (old_div(self._scene.timedelta,1000.0))),self._yscale)
 		
 		if self._velocity.length() > self._maxvelocity:
 			norm = fife.DoublePoint(self._velocity)
@@ -160,8 +163,8 @@ class SpaceObject(object):
 		norm.x *= brakingForce
 		norm.y *= brakingForce
 		
-		self._velocity.x += (norm.x * (self._scene.timedelta/1000.0))/self._xscale
-		self._velocity.y += (norm.y * (self._scene.timedelta/1000.0))/self._yscale
+		self._velocity.x += old_div((norm.x * (old_div(self._scene.timedelta,1000.0))),self._xscale)
+		self._velocity.y += old_div((norm.y * (old_div(self._scene.timedelta,1000.0))),self._yscale)
 		
 	def removeFromScene(self):
 		"""
@@ -177,7 +180,7 @@ class SpaceObject(object):
 		return self._maxvelocity
 		
 	def _setMaxVelocity(self, maxvel):
-		self._maxvelocity = maxvel/sqrt(self._xscale * self._yscale)
+		self._maxvelocity = old_div(maxvel,sqrt(self._xscale * self._yscale))
 
 	def _getLocation(self):
 		return self._instance.getLocation()

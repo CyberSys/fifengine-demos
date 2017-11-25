@@ -24,6 +24,7 @@
 # ####################################################################
 # This is the rio de hola client for FIFE.
 
+from __future__ import print_function
 import sys, os, re, math, random, shutil
 
 fife_path = os.path.join('..','..','engine','python')
@@ -31,7 +32,7 @@ if os.path.isdir(fife_path) and fife_path not in sys.path:
 	sys.path.insert(0,fife_path)
 
 from fife import fife
-print "Using the FIFE python module found here: ", os.path.dirname(fife.__file__)
+print("Using the FIFE python module found here: ", os.path.dirname(fife.__file__))
 
 from fife.extensions import *
 from scripts import world

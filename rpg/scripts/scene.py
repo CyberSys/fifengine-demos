@@ -23,6 +23,8 @@
 #  51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 # ####################################################################
 
+from __future__ import print_function
+from builtins import str
 import sys, os, re, math, random, shutil, uuid
 
 from fife import fife
@@ -90,7 +92,7 @@ class Scene(Serializer):
 			else:
 				newobject.deserialize(objdict)
 		
-		except KeyError, e:
+		except KeyError as e:
 			raise ObjectNotFoundError
 			
 		return newobject
@@ -101,14 +103,14 @@ class Scene(Serializer):
 				objdict = self._objectsettings.get("objects", obj, {})
 				newobj = self.loadObject(objdict["objectname"], obj, objdict)
 				self._gamecontroller.logger.log_debug("Loaded object: " + obj)
-			except ObjectNotFoundError, e:
+			except ObjectNotFoundError as e:
 				self._gamecontroller.logger.log_error("Error while loading object: " + obj)
 				continue
 				
 			try:
 				if newobj:
 					self.addObjectToScene(newobj)
-			except ObjectAlreadyInSceneError, e:
+			except ObjectAlreadyInSceneError as e:
 				self._gamecontroller.logger.log_error("Object already part of scene:" + obj)
 				continue
 	
@@ -118,7 +120,7 @@ class Scene(Serializer):
 		"""
 		modeldict = self._modelsettings.get("models", "Player", {})
 	
-		print 'loading: %s' % modeldict["file"]
+		print('loading: %s' % modeldict["file"])
 		self._loader.loadImportFile(modeldict["file"])
 		self._player = Player(self._gamecontroller, self.actorlayer, "warrior")
 		
@@ -165,7 +167,7 @@ class Scene(Serializer):
 		self.createPlayerObject()
 		
 	def destroyScene(self):
-		for obj in self._objectlist.values():
+		for obj in list(self._objectlist.values()):
 			obj.destroy()
 
 		self._objectlist.clear()
@@ -221,7 +223,7 @@ class Scene(Serializer):
 			raise ObjectNotFoundError(objid + " was not found on the scene.")
 	
 	def addObjectToScene(self, obj):
-		if not self._objectlist.has_key(obj.id):
+		if obj.id not in self._objectlist:
 			self._objectlist[obj.id] = obj
 		else:
 			obj.destroy()
@@ -247,7 +249,7 @@ class Scene(Serializer):
 		
 		objectlist = []
 		
-		for obj in self._objectlist.values():
+		for obj in list(self._objectlist.values()):
 			ovals = obj.serialize()
 			map_settings.set("objects", obj.id, ovals)
 			objectlist.append(obj.id)
