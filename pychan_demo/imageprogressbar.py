@@ -38,13 +38,13 @@ class ImageProgressBarExample(PyChanExample):
 		self.widget.show()
 
 	def increase(self):
-		print "increase"
+		print ("increase")
 		bar = self.widget.findChild(name="bar")
 		bar.value = bar.value + 5
-		print "value ", bar.value
+		print ("value "), bar.value
 
 	def decrease(self):
-		print "decrease"
+		print ("decrease")
 		bar = self.widget.findChild(name="bar")
 		bar.value = bar.value - 5
-		print "value ", bar.value
+		print ("value "), bar.value
