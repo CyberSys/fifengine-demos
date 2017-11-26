@@ -47,4 +47,4 @@ class ImageProgressBarExample(PyChanExample):
 		print ("decrease")
 		bar = self.widget.findChild(name="bar")
 		bar.value = bar.value - 5
-		print ("value "), bar.value
+		print ("value ", bar.value)
